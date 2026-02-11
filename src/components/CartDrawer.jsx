@@ -22,7 +22,7 @@ export default function CartDrawer({ isOpen, onClose }) {
 
     const getImageUrl = (url) => {
         if (!url) return 'https://placehold.co/100x100/E8F5E9/1B5E20?text=🌿';
-        return url.startsWith('http') ? url : `${SUPABASE_URL}/storage/v1/object/public/pupuk-images/${url}`;
+        return url.startsWith('http') || url.startsWith('/') ? url : `${SUPABASE_URL}/storage/v1/object/public/pupuk-images/${url}`;
     };
 
     return (
