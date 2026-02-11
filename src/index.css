@@ -1848,6 +1848,23 @@ select.form-input {
     margin-left: 64px;
     padding: 16px;
   }
+
+  .admin-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card-value {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 480px) {
