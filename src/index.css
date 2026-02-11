@@ -1848,4 +1848,10 @@ select.form-input {
   .form-row {
     grid-template-columns: 1fr;
   }
+
+  .btn-add-cart {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
 }
