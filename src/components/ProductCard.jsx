@@ -33,6 +33,9 @@ export default function ProductCard({ product }) {
                 {product.category_name && (
                     <span className="product-card-badge">{product.category_name}</span>
                 )}
+                <button className="btn-add-cart" onClick={handleAddCart} title="Tambah ke keranjang">
+                    +
+                </button>
             </div>
             <div className="product-card-body">
                 {product.brand_name && (
@@ -45,9 +48,6 @@ export default function ProductCard({ product }) {
                         {formatPrice(product.selling_price)}
                         <small>/{product.unit || 'kg'}</small>
                     </div>
-                    <button className="btn-add-cart" onClick={handleAddCart} title="Tambah ke keranjang">
-                        +
-                    </button>
                 </div>
             </div>
         </Link>

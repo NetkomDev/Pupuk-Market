@@ -496,22 +496,32 @@ textarea {
 }
 
 .btn-add-cart {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius);
-  background: var(--primary-50);
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* Make it round */
+  background: white;
   color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px;
   transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  border: none;
+  padding-bottom: 2px;
+  /* Center alignment adjustment */
 }
 
 .btn-add-cart:hover {
   background: var(--primary);
   color: white;
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* ========== PRODUCT DETAIL ========== */
