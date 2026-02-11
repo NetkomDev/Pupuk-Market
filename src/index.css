@@ -31,11 +31,11 @@
   --info: #3B82F6;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.04);
-  --shadow-xl: 0 20px 25px rgba(0,0,0,0.1), 0 8px 10px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 8px 10px rgba(0, 0, 0, 0.04);
 
   /* Radius */
   --radius-sm: 6px;
@@ -88,7 +88,9 @@ button {
   outline: none;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   outline: none;
 }
@@ -105,7 +107,7 @@ input, select, textarea {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-light);
@@ -236,14 +238,21 @@ input, select, textarea {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 30% 70%, rgba(249,168,37,0.15) 0%, transparent 50%),
-              radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 70%, rgba(249, 168, 37, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
   animation: heroFloat 15s ease-in-out infinite;
 }
 
 @keyframes heroFloat {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-20px, -10px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-20px, -10px);
+  }
 }
 
 .hero-content {
@@ -271,7 +280,7 @@ input, select, textarea {
   display: flex;
   max-width: 500px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
   padding: 6px;
   backdrop-filter: blur(10px);
@@ -287,7 +296,7 @@ input, select, textarea {
 }
 
 .hero-search input::placeholder {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .hero-search button {
@@ -716,7 +725,7 @@ input, select, textarea {
 .cart-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 200;
   opacity: 0;
   visibility: hidden;
@@ -805,8 +814,15 @@ input, select, textarea {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateX(10px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .cart-item-image {
@@ -891,7 +907,7 @@ input, select, textarea {
 }
 
 .cart-item-remove:hover {
-  background: rgba(239,68,68,0.1);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--error);
 }
 
@@ -1116,8 +1132,15 @@ select.form-input {
 }
 
 @keyframes pulseSuccess {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
 }
 
 .order-success h1 {
@@ -1137,7 +1160,7 @@ select.form-input {
 /* ========== FOOTER ========== */
 .footer {
   background: var(--bg-dark);
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   padding: 48px 20px 24px;
   margin-top: 60px;
 }
@@ -1187,7 +1210,7 @@ select.form-input {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 13px;
   text-align: center;
 }
@@ -1216,7 +1239,7 @@ select.form-input {
   font-size: 20px;
   font-weight: 800;
   color: var(--accent);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-sidebar-nav {
@@ -1235,7 +1258,7 @@ select.form-input {
   border-radius: var(--radius);
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   transition: var(--transition);
   cursor: pointer;
   background: none;
@@ -1244,12 +1267,12 @@ select.form-input {
 }
 
 .admin-nav-item:hover {
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .admin-nav-item.active {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
@@ -1261,7 +1284,7 @@ select.form-input {
 
 .admin-sidebar-footer {
   padding: 16px 12px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-content {
@@ -1316,10 +1339,25 @@ select.form-input {
   margin-bottom: 14px;
 }
 
-.stat-card-icon.green { background: var(--primary-50); color: var(--primary); }
-.stat-card-icon.yellow { background: #FFF8E1; color: var(--accent-dark); }
-.stat-card-icon.blue { background: #E3F2FD; color: var(--info); }
-.stat-card-icon.red { background: #FFEBEE; color: var(--error); }
+.stat-card-icon.green {
+  background: var(--primary-50);
+  color: var(--primary);
+}
+
+.stat-card-icon.yellow {
+  background: #FFF8E1;
+  color: var(--accent-dark);
+}
+
+.stat-card-icon.blue {
+  background: #E3F2FD;
+  color: var(--info);
+}
+
+.stat-card-icon.red {
+  background: #FFEBEE;
+  color: var(--error);
+}
 
 .stat-card-value {
   font-size: 28px;
@@ -1407,11 +1445,30 @@ select.form-input {
   font-weight: 600;
 }
 
-.status-badge.baru { background: #E3F2FD; color: #1565C0; }
-.status-badge.diproses { background: #FFF8E1; color: #F57F17; }
-.status-badge.dikirim { background: #E8F5E9; color: #2E7D32; }
-.status-badge.selesai { background: #F3E5F5; color: #7B1FA2; }
-.status-badge.dibatalkan { background: #FFEBEE; color: #C62828; }
+.status-badge.baru {
+  background: #E3F2FD;
+  color: #1565C0;
+}
+
+.status-badge.diproses {
+  background: #FFF8E1;
+  color: #F57F17;
+}
+
+.status-badge.dikirim {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.status-badge.selesai {
+  background: #F3E5F5;
+  color: #7B1FA2;
+}
+
+.status-badge.dibatalkan {
+  background: #FFEBEE;
+  color: #C62828;
+}
 
 .action-btns {
   display: flex;
@@ -1437,7 +1494,7 @@ select.form-input {
 }
 
 .action-btn.delete:hover {
-  background: rgba(239,68,68,0.1);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--error);
 }
 
@@ -1445,7 +1502,7 @@ select.form-input {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 300;
   display: flex;
   align-items: center;
@@ -1465,8 +1522,15 @@ select.form-input {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal-header {
@@ -1531,7 +1595,7 @@ select.form-input {
 }
 
 .login-error {
-  background: rgba(239,68,68,0.1);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--error);
   padding: 10px 14px;
   border-radius: var(--radius);
@@ -1557,7 +1621,9 @@ select.form-input {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========== EMPTY STATE ========== */
@@ -1610,13 +1676,26 @@ select.form-input {
 }
 
 @keyframes toastIn {
-  from { opacity: 0; transform: translateY(10px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes toastOut {
-  from { opacity: 1; }
-  to { opacity: 0; transform: translateY(-10px); }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .toast .toast-icon {
@@ -1654,51 +1733,90 @@ select.form-input {
 }
 
 /* ========== RESPONSIVE ========== */
+.cart-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+@media (max-width: 1024px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-summary {
+    position: relative;
+    top: 0;
+    margin-top: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .hero h1 { font-size: 28px; }
-  .hero p { font-size: 15px; }
-  
-  .navbar-search { display: none; }
-  
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .navbar-search {
+    display: none;
+  }
+
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  
-  .product-card-image { height: 150px; }
-  .product-card-body { padding: 12px; }
-  .product-card-name { font-size: 14px; }
-  .product-card-price { font-size: 15px; }
-  
+
+  .product-card-image {
+    height: 150px;
+  }
+
+  .product-card-body {
+    padding: 12px;
+  }
+
+  .product-card-name {
+    font-size: 14px;
+  }
+
+  .product-card-price {
+    font-size: 15px;
+  }
+
   .product-detail {
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 20px;
   }
-  
-  .checkout-grid {
-    grid-template-columns: 1fr;
-  }
-  
+
+  /* .checkout-grid handled above under 1024px */
+
   .footer-inner {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .admin-sidebar {
     width: 64px;
   }
-  
+
   .admin-sidebar-logo,
   .admin-nav-item span {
     display: none;
   }
-  
+
   .admin-nav-item {
     justify-content: center;
     padding: 12px;
   }
-  
+
   .admin-content {
     margin-left: 64px;
     padding: 16px;
@@ -1710,12 +1828,24 @@ select.form-input {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
-  
-  .product-card-image { height: 130px; }
-  .product-card-desc { display: none; }
-  
-  .hero { padding: 40px 16px; }
-  .hero h1 { font-size: 24px; }
-  
-  .form-row { grid-template-columns: 1fr; }
+
+  .product-card-image {
+    height: 130px;
+  }
+
+  .product-card-desc {
+    display: none;
+  }
+
+  .hero {
+    padding: 40px 16px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
