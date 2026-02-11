@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getProvinces, getRegencies, getDistricts, getVillages } from '../data/wilayah';
 
 const CACHE_KEY = 'pupuk_address_cache';
@@ -28,6 +28,11 @@ export default function AddressForm({ value, onChange }) {
     const [loadingReg, setLoadingReg] = useState(false);
     const [loadingDist, setLoadingDist] = useState(false);
     const [loadingVillage, setLoadingVillage] = useState(false);
+
+    // Refs for auto-focus
+    const regencyRef = useRef(null);
+    const districtRef = useRef(null);
+    const villageRef = useRef(null);
 
     // Load provinces on mount & restore cache
     useEffect(() => {
@@ -91,6 +96,7 @@ export default function AddressForm({ value, onChange }) {
 
         if (id) {
             setLoadingReg(true);
+            setTimeout(() => regencyRef.current?.focus(), 50); // Auto-focus next field
             const data = await getRegencies(id);
             setRegencies(data);
             setLoadingReg(false);
@@ -111,6 +117,7 @@ export default function AddressForm({ value, onChange }) {
 
         if (id) {
             setLoadingDist(true);
+            setTimeout(() => districtRef.current?.focus(), 50); // Auto-focus next field
             const data = await getDistricts(id);
             setDistricts(data);
             setLoadingDist(false);
@@ -129,6 +136,7 @@ export default function AddressForm({ value, onChange }) {
 
         if (id) {
             setLoadingVillage(true);
+            setTimeout(() => villageRef.current?.focus(), 50); // Auto-focus next field
             const data = await getVillages(id);
             setVillages(data);
             setLoadingVillage(false);
@@ -157,8 +165,14 @@ export default function AddressForm({ value, onChange }) {
             </div>
             <div className="form-group">
                 <label>Kabupaten/Kota <span className="required">*</span></label>
-                <select className="form-input" value={selectedRegency} onChange={handleRegencyChange} disabled={!selectedProvince || loadingReg}>
-                    <option value="">{loadingReg ? 'Memuat...' : '-- Pilih Kabupaten/Kota --'}</option>
+                <select
+                    ref={regencyRef}
+                    className="form-input"
+                    value={selectedRegency}
+                    onChange={handleRegencyChange}
+                    disabled={!selectedProvince}
+                >
+                    <option value="">{loadingReg ? 'Sedang memuat data...' : '-- Pilih Kabupaten/Kota --'}</option>
                     {regencies.map(r => (
                         <option key={r.id} value={r.id}>{r.name}</option>
                     ))}
@@ -166,8 +180,14 @@ export default function AddressForm({ value, onChange }) {
             </div>
             <div className="form-group">
                 <label>Kecamatan <span className="required">*</span></label>
-                <select className="form-input" value={selectedDistrict} onChange={handleDistrictChange} disabled={!selectedRegency || loadingDist}>
-                    <option value="">{loadingDist ? 'Memuat...' : '-- Pilih Kecamatan --'}</option>
+                <select
+                    ref={districtRef}
+                    className="form-input"
+                    value={selectedDistrict}
+                    onChange={handleDistrictChange}
+                    disabled={!selectedRegency}
+                >
+                    <option value="">{loadingDist ? 'Sedang memuat data...' : '-- Pilih Kecamatan --'}</option>
                     {districts.map(d => (
                         <option key={d.id} value={d.id}>{d.name}</option>
                     ))}
@@ -175,8 +195,14 @@ export default function AddressForm({ value, onChange }) {
             </div>
             <div className="form-group">
                 <label>Desa/Kelurahan <span className="required">*</span></label>
-                <select className="form-input" value={selectedVillage} onChange={handleVillageChange} disabled={!selectedDistrict || loadingVillage}>
-                    <option value="">{loadingVillage ? 'Memuat...' : '-- Pilih Desa/Kelurahan --'}</option>
+                <select
+                    ref={villageRef}
+                    className="form-input"
+                    value={selectedVillage}
+                    onChange={handleVillageChange}
+                    disabled={!selectedDistrict}
+                >
+                    <option value="">{loadingVillage ? 'Sedang memuat data...' : '-- Pilih Desa/Kelurahan --'}</option>
                     {villages.map(v => (
                         <option key={v.id} value={v.id}>{v.name}</option>
                     ))}
