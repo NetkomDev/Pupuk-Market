@@ -1806,6 +1806,23 @@ select.form-input {
     padding: 20px;
   }
 
+  /* Mobile Toast */
+  .toast-container {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: 80px;
+    /* Higher than bottom to avoid navigation bars if any */
+    width: 90%;
+    align-items: center;
+  }
+
+  .toast {
+    width: 100%;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
   /* .checkout-grid handled above under 1024px */
 
   .footer-inner {
