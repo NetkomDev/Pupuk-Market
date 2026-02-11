@@ -1,4 +1,4 @@
-const BASE_URL = 'https://emsifa.github.io/api-wilayah-indonesia/api';
+const BASE_URL = 'https://ibnux.github.io/data-indonesia';
 
 const STATIC_PROVINCES = [
     { "id": "11", "name": "ACEH" },
@@ -14,7 +14,7 @@ const STATIC_PROVINCES = [
     { "id": "31", "name": "DKI JAKARTA" },
     { "id": "32", "name": "JAWA BARAT" },
     { "id": "33", "name": "JAWA TENGAH" },
-    { "id": "34", "name": "DI YOGYAKARTA" },
+    { "id": "34", "name": "DAERAH ISTIMEWA YOGYAKARTA" },
     { "id": "35", "name": "JAWA TIMUR" },
     { "id": "36", "name": "BANTEN" },
     { "id": "51", "name": "BALI" },
@@ -33,8 +33,12 @@ const STATIC_PROVINCES = [
     { "id": "76", "name": "SULAWESI BARAT" },
     { "id": "81", "name": "MALUKU" },
     { "id": "82", "name": "MALUKU UTARA" },
-    { "id": "91", "name": "PAPUA BARAT" },
-    { "id": "94", "name": "PAPUA" }
+    { "id": "91", "name": "PAPUA" },
+    { "id": "92", "name": "PAPUA BARAT" },
+    { "id": "93", "name": "PAPUA SELATAN" },
+    { "id": "94", "name": "PAPUA TENGAH" },
+    { "id": "95", "name": "PAPUA PEGUNUNGAN" },
+    { "id": "96", "name": "PAPUA BARAT DAYA" }
 ];
 
 export async function getProvinces() {
@@ -44,10 +48,12 @@ export async function getProvinces() {
 
 export async function getRegencies(provinceId) {
     try {
-        const response = await fetch(`${BASE_URL}/regencies/${provinceId}.json`);
+        const response = await fetch(`${BASE_URL}/kabupaten/${provinceId}.json`);
         if (!response.ok) return [];
         const data = await response.json();
-        return Array.isArray(data) ? data.sort((a, b) => a.name.localeCompare(b.name)) : [];
+        return Array.isArray(data)
+            ? data.map(item => ({ ...item, name: item.nama })).sort((a, b) => a.name.localeCompare(b.name))
+            : [];
     } catch (error) {
         console.error("Failed to fetch regencies:", error);
         return [];
@@ -56,10 +62,12 @@ export async function getRegencies(provinceId) {
 
 export async function getDistricts(regencyId) {
     try {
-        const response = await fetch(`${BASE_URL}/districts/${regencyId}.json`);
+        const response = await fetch(`${BASE_URL}/kecamatan/${regencyId}.json`);
         if (!response.ok) return [];
         const data = await response.json();
-        return Array.isArray(data) ? data.sort((a, b) => a.name.localeCompare(b.name)) : [];
+        return Array.isArray(data)
+            ? data.map(item => ({ ...item, name: item.nama })).sort((a, b) => a.name.localeCompare(b.name))
+            : [];
     } catch (error) {
         console.error("Failed to fetch districts:", error);
         return [];
@@ -68,10 +76,12 @@ export async function getDistricts(regencyId) {
 
 export async function getVillages(districtId) {
     try {
-        const response = await fetch(`${BASE_URL}/villages/${districtId}.json`);
+        const response = await fetch(`${BASE_URL}/kelurahan/${districtId}.json`);
         if (!response.ok) return [];
         const data = await response.json();
-        return Array.isArray(data) ? data.sort((a, b) => a.name.localeCompare(b.name)) : [];
+        return Array.isArray(data)
+            ? data.map(item => ({ ...item, name: item.nama })).sort((a, b) => a.name.localeCompare(b.name))
+            : [];
     } catch (error) {
         console.error("Failed to fetch villages:", error);
         return [];
