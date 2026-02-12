@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { SettingsContext } from '../App';
 
 export default function OrderSuccess() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { settings } = useContext(SettingsContext) || {};
     const { customerName, items, autoRedirect } = location.state || {};
 
     let waMessage = 'Halo Admin, saya baru saja checkout pesanan di PupukMarket. Mohon segera diproses.';
@@ -15,7 +17,8 @@ export default function OrderSuccess() {
         waMessage = `Halo Admin, ada order masuk dari ${customerName}, ${itemsList}. Mohon diproses.`;
     }
 
-    const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+    const waNumber = settings?.whatsapp_number || '6281234567890';
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
     useEffect(() => {
         if (autoRedirect) {

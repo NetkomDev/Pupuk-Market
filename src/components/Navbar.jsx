@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from '../App';
+import { CartContext, SettingsContext } from '../App';
 
 export default function Navbar({ onCartOpen }) {
     const { totalItems } = useContext(CartContext);
+    const { settings } = useContext(SettingsContext) || {};
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export default function Navbar({ onCartOpen }) {
             <div className="navbar-inner">
                 <Link to="/" className="navbar-logo">
                     <div className="logo-icon">🌿</div>
-                    PupukMarket
+                    {settings?.store_name || 'PupukMarket'}
                 </Link>
 
                 <form className="navbar-search" onSubmit={handleSearch}>

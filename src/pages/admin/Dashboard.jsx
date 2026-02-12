@@ -188,6 +188,20 @@ export default function AdminDashboard() {
         setOrderItems(data || []);
     }
 
+    async function handleSaveSettings() {
+        setSaving(true);
+        try {
+            const { error } = await supabase.from('pupuk_store_settings').update(settingsForm).eq('id', settingsForm.id);
+            if (error) throw error;
+            setSettings(settingsForm);
+            addToast('Pengaturan berhasil disimpan!', '✅');
+        } catch (err) {
+            console.error(err);
+            addToast('Gagal menyimpan pengaturan.', '❌');
+        }
+        setSaving(false);
+    }
+
     const handleLogout = async () => {
         await signOut();
         navigate('/admin');
@@ -203,6 +217,7 @@ export default function AdminDashboard() {
         { key: 'brands', icon: '🏷️', label: 'Merek' },
         { key: 'suppliers', icon: '🚚', label: 'Supplier' },
         { key: 'orders', icon: '🛍️', label: 'Pesanan' },
+        { key: 'settings', icon: '⚙️', label: 'Pengaturan' },
     ];
 
     return (
@@ -533,42 +548,84 @@ export default function AdminDashboard() {
                                 <p style={{ marginTop: '12px' }}><strong>Alamat:</strong></p>
                                 <p>{selectedOrder.shipping_kelurahan}, {selectedOrder.shipping_kecamatan}</p>
                                 <p>{selectedOrder.shipping_kabupaten}, {selectedOrder.shipping_province}</p>
-                                {selectedOrder.shipping_address_detail && <p style={{ marginTop: '8px', color: 'var(--text-secondary)' }}>{selectedOrder.shipping_address_detail}</p>}
-                                {selectedOrder.notes && <p style={{ marginTop: '8px', fontStyle: 'italic', color: 'var(--text-light)' }}>Catatan: {selectedOrder.notes}</p>}
+                                <p>{selectedOrder.shipping_address_detail}</p>
                             </div>
                             <div className="form-section">
-                                <div className="form-section-title"><span className="section-icon">📋</span> Status Pesanan</div>
-                                <p><strong>Status:</strong> <span className={`status-badge ${selectedOrder.status}`}>{selectedOrder.status}</span></p>
-                                <p style={{ marginTop: '8px' }}><strong>Tanggal:</strong> {new Date(selectedOrder.created_at).toLocaleString('id-ID')}</p>
-                                <p style={{ marginTop: '8px' }}><strong>Total:</strong> <span style={{ fontSize: '20px', fontWeight: 800, color: 'var(--primary)' }}>{formatPrice(selectedOrder.total_amount)}</span></p>
-                                <div style={{ marginTop: '16px' }}>
-                                    <select className="form-input" value={selectedOrder.status} onChange={e => updateOrderStatus(selectedOrder.id, e.target.value)}>
-                                        <option value="baru">Baru</option>
-                                        <option value="diproses">Diproses</option>
-                                        <option value="dikirim">Dikirim</option>
-                                        <option value="selesai">Selesai</option>
-                                        <option value="dibatalkan">Dibatalkan</option>
-                                    </select>
-                                </div>
+                                <div className="form-section-title"><span className="section-icon">📦</span> Status Pesanan</div>
+                                <select className="form-input" value={selectedOrder.status} onChange={e => updateOrderStatus(selectedOrder.id, e.target.value)}>
+                                    <option value="baru">Baru</option>
+                                    <option value="diproses">Diproses</option>
+                                    <option value="dikirim">Dikirim</option>
+                                    <option value="selesai">Selesai</option>
+                                    <option value="dibatalkan">Dibatalkan</option>
+                                </select>
                             </div>
                         </div>
                         <div className="admin-table-wrapper" style={{ marginTop: '20px' }}>
                             <div className="admin-table-header"><h3>Item Pesanan</h3></div>
                             <table className="admin-table">
                                 <thead>
-                                    <tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr>
+                                    <tr><th>Produk</th><th>Item</th><th>Harga</th><th>Subtotal</th></tr>
                                 </thead>
                                 <tbody>
                                     {orderItems.map(item => (
                                         <tr key={item.id}>
                                             <td style={{ fontWeight: 600 }}>{item.product_name}</td>
-                                            <td>{item.quantity}</td>
+                                            <td>{item.quantity} {item.unit}</td>
                                             <td>{formatPrice(item.unit_price)}</td>
-                                            <td style={{ fontWeight: 600, color: 'var(--primary)' }}>{formatPrice(item.subtotal)}</td>
+                                            <td>{formatPrice(item.subtotal)}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                    </>
+                )}
+
+                {/* ====== SETTINGS TAB ====== */}
+                {activeTab === 'settings' && (
+                    <>
+                        <div className="admin-header">
+                            <h1>Pengaturan Toko</h1>
+                            <button className="btn-primary" style={{ width: 'auto' }} onClick={handleSaveSettings} disabled={saving}>
+                                {saving ? 'Menyimpan...' : 'Simpan Perubahan'}
+                            </button>
+                        </div>
+                        <div className="settings-form" style={{ maxWidth: '800px', background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #eee' }}>
+                            <div className="form-section-title">Informasi Dasar</div>
+                            <div className="form-group">
+                                <label>Nama Toko</label>
+                                <input className="form-input" value={settingsForm.store_name || ''} onChange={e => setSettingsForm({ ...settingsForm, store_name: e.target.value })} />
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <label>Nomor WhatsApp Admin (62xxx)</label>
+                                    <input className="form-input" value={settingsForm.whatsapp_number || ''} onChange={e => setSettingsForm({ ...settingsForm, whatsapp_number: e.target.value })} placeholder="6281234567890" />
+                                    <small style={{ color: 'var(--text-light)' }}>Gunakan format 62 di depan (tanpa + atau 0).</small>
+                                </div>
+                                <div className="form-group">
+                                    <label>Nomor Telepon (Tampil di Footer)</label>
+                                    <input className="form-input" value={settingsForm.phone || ''} onChange={e => setSettingsForm({ ...settingsForm, phone: e.target.value })} placeholder="0812-3456-7890" />
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label>Alamat Toko</label>
+                                <textarea className="form-input" rows="3" value={settingsForm.address || ''} onChange={e => setSettingsForm({ ...settingsForm, address: e.target.value })} />
+                            </div>
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input className="form-input" value={settingsForm.email || ''} onChange={e => setSettingsForm({ ...settingsForm, email: e.target.value })} />
+                            </div>
+
+                            <div className="form-section-title" style={{ marginTop: '24px' }}>Sosial Media</div>
+                            <div className="form-group">
+                                <label>Instagram URL</label>
+                                <input className="form-input" value={settingsForm.instagram_url || ''} onChange={e => setSettingsForm({ ...settingsForm, instagram_url: e.target.value })} placeholder="https://instagram.com/..." />
+                            </div>
+                            <div className="form-group">
+                                <label>Facebook URL</label>
+                                <input className="form-input" value={settingsForm.facebook_url || ''} onChange={e => setSettingsForm({ ...settingsForm, facebook_url: e.target.value })} placeholder="https://facebook.com/..." />
+                            </div>
                         </div>
                     </>
                 )}
