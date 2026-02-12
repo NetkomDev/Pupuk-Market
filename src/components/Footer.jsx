@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { SettingsContext } from '../App';
+import { FaInstagram, FaFacebook, FaYoutube, FaTiktok } from 'react-icons/fa';
 
 export default function Footer() {
     const { settings } = useContext(SettingsContext) || {};
@@ -13,16 +14,16 @@ export default function Footer() {
                     <p>Marketplace pupuk terpercaya untuk kebutuhan pertanian Anda. Menyediakan berbagai jenis pupuk berkualitas dengan harga terbaik.</p>
                     <div className="social-links" style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
                         {settings?.instagram_url && (
-                            <a href={settings.instagram_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>📸</a>
+                            <a href={settings.instagram_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#E1306C', fontSize: '1.5rem' }} title="Instagram"><FaInstagram /></a>
                         )}
                         {settings?.facebook_url && (
-                            <a href={settings.facebook_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>f</a>
+                            <a href={settings.facebook_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#1877F2', fontSize: '1.5rem' }} title="Facebook"><FaFacebook /></a>
                         )}
                         {settings?.youtube_url && (
-                            <a href={settings.youtube_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>📺</a>
+                            <a href={settings.youtube_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#FF0000', fontSize: '1.5rem' }} title="YouTube"><FaYoutube /></a>
                         )}
                         {settings?.tiktok_url && (
-                            <a href={settings.tiktok_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>🎵</a>
+                            <a href={settings.tiktok_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#000000', fontSize: '1.5rem' }} title="TikTok"><FaTiktok /></a>
                         )}
                     </div>
                 </div>

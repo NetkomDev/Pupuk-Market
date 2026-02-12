@@ -23,15 +23,28 @@ CREATE TABLE IF NOT EXISTS pupuk_store_settings (
 -- ENABLE RLS
 ALTER TABLE pupuk_store_settings ENABLE ROW LEVEL SECURITY;
 
--- RLS POLICIES
--- Public can read settings (for footer, contact info)
-CREATE POLICY "pupuk_settings_public_read" ON pupuk_store_settings FOR SELECT USING (true);
+-- RLS POLICIES (Idempotent)
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies WHERE tablename = 'pupuk_store_settings' AND policyname = 'pupuk_settings_public_read'
+    ) THEN
+        CREATE POLICY "pupuk_settings_public_read" ON pupuk_store_settings FOR SELECT USING (true);
+    END IF;
 
--- Only admin can update
-CREATE POLICY "pupuk_settings_admin_update" ON pupuk_store_settings FOR UPDATE USING (auth.role() = 'authenticated');
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies WHERE tablename = 'pupuk_store_settings' AND policyname = 'pupuk_settings_admin_update'
+    ) THEN
+        CREATE POLICY "pupuk_settings_admin_update" ON pupuk_store_settings FOR UPDATE USING (auth.role() = 'authenticated');
+    END IF;
 
--- Only admin can insert (though we only need 1 row)
-CREATE POLICY "pupuk_settings_admin_insert" ON pupuk_store_settings FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies WHERE tablename = 'pupuk_store_settings' AND policyname = 'pupuk_settings_admin_insert'
+    ) THEN
+        CREATE POLICY "pupuk_settings_admin_insert" ON pupuk_store_settings FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+    END IF;
+END
+$$;
 
 -- SEED DATA (Only if table is empty)
 INSERT INTO pupuk_store_settings (store_name, phone, whatsapp_number, address, email)
