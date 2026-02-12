@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext, SettingsContext } from '../App';
+import { FaSearch, FaShoppingCart, FaLeaf } from 'react-icons/fa';
 
 export default function Navbar({ onCartOpen }) {
     const { totalItems } = useContext(CartContext);
@@ -19,12 +20,14 @@ export default function Navbar({ onCartOpen }) {
         <nav className="navbar">
             <div className="navbar-inner">
                 <Link to="/" className="navbar-logo">
-                    <div className="logo-icon">🌿</div>
+                    <div className="logo-icon">
+                        <FaLeaf />
+                    </div>
                     {settings?.store_name || 'PupukMarket'}
                 </Link>
 
                 <form className="navbar-search" onSubmit={handleSearch}>
-                    <span className="search-icon">🔍</span>
+                    <FaSearch className="search-icon" />
                     <input
                         type="text"
                         placeholder="Cari pupuk..."
@@ -35,7 +38,7 @@ export default function Navbar({ onCartOpen }) {
 
                 <div className="navbar-actions">
                     <button className="cart-btn" onClick={onCartOpen}>
-                        🛒
+                        <FaShoppingCart />
                         {totalItems > 0 && (
                             <span className="cart-badge">{totalItems}</span>
                         )}

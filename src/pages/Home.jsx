@@ -81,27 +81,25 @@ export default function Home() {
                 <div className="hero-content">
                     <h1>Pupuk Berkualitas untuk Pertanian Lebih Baik</h1>
                     <p>Temukan berbagai jenis pupuk terbaik dari supplier terpercaya. Harga bersaing, kualitas terjamin untuk hasil panen maksimal.</p>
-                    <form className="hero-search" onSubmit={handleHeroSearch}>
-                        <input
-                            type="text"
-                            placeholder="Cari jenis pupuk yang Anda butuhkan..."
-                            value={heroSearch}
-                            onChange={e => setHeroSearch(e.target.value)}
-                        />
-                        <button type="submit">Cari</button>
-                    </form>
+                    <div className="hero-btns">
+                        <button className="btn-hero" onClick={() => {
+                            document.getElementById('products-start').scrollIntoView({ behavior: 'smooth' });
+                        }}>
+                            Lihat Produk
+                        </button>
+                    </div>
                 </div>
             </section>
 
             {/* Category chips */}
-            <section className="category-section">
+            <section className="category-section" id="products-start">
                 <div className="category-chips">
                     <button
                         className={`category-chip ${!selectedCategory ? 'active' : ''}`}
                         onClick={() => setSelectedCategory(null)}
                     >
-                        <span className="chip-icon">📦</span>
-                        Semua Produk
+                        <div className="chip-icon">📦</div>
+                        <span className="chip-label">Semua</span>
                     </button>
                     {categories.map(cat => (
                         <button
@@ -109,8 +107,8 @@ export default function Home() {
                             className={`category-chip ${selectedCategory === cat.id ? 'active' : ''}`}
                             onClick={() => setSelectedCategory(cat.id)}
                         >
-                            <span className="chip-icon">{cat.icon || '🌱'}</span>
-                            {cat.name}
+                            <div className="chip-icon">{cat.icon || '🌱'}</div>
+                            <span className="chip-label">{cat.name}</span>
                         </button>
                     ))}
                 </div>
