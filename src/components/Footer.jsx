@@ -22,7 +22,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                &copy; {new Date().getFullYear()} PupukMarket. Developer by <a href="https://netkomdev.vercel.app/" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>NETKOMdev</a>. Semua hak dilindungi.
+                &copy; {new Date().getFullYear()} PupukMarket | <a href="https://netkomdev.vercel.app/" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>NETKOMdev</a>. Semua hak dilindungi.
             </div>
         </footer>
     );
