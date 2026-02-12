@@ -223,9 +223,12 @@ textarea {
 
 /* ========== HERO ========== */
 .hero {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+  background-image: url('/images/paddy-field.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
-  padding: 60px 20px;
+  padding: 80px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -234,13 +237,13 @@ textarea {
 .hero::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 70%, rgba(249, 168, 37, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
-  animation: heroFloat 15s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Dark overlay for readability */
+  z-index: 0;
 }
 
 @keyframes heroFloat {
