@@ -25,6 +25,8 @@ function App() {
         email: 'info@pupukmarket.id',
         instagram_url: '',
         facebook_url: '',
+        youtube_url: '',
+        tiktok_url: '',
         shopee_url: '',
         tokopedia_url: ''
     });

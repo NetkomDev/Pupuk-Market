@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS pupuk_store_settings (
   email TEXT DEFAULT 'info@pupukmarket.id',
   instagram_url TEXT,
   facebook_url TEXT,
+  youtube_url TEXT,
+  tiktok_url TEXT,
   shopee_url TEXT,
   tokopedia_url TEXT,
   created_at TIMESTAMPTZ DEFAULT now(),
@@ -35,3 +37,7 @@ CREATE POLICY "pupuk_settings_admin_insert" ON pupuk_store_settings FOR INSERT W
 INSERT INTO pupuk_store_settings (store_name, phone, whatsapp_number, address, email)
 SELECT 'PupukMarket', '081234567890', '6281234567890', 'Jl. Tani Makmur No. 88, Indonesia', 'admin@pupukmarket.id'
 WHERE NOT EXISTS (SELECT 1 FROM pupuk_store_settings);
+
+-- Safe column additions (Run this part if table already exists)
+ALTER TABLE pupuk_store_settings ADD COLUMN IF NOT EXISTS youtube_url TEXT;
+ALTER TABLE pupuk_store_settings ADD COLUMN IF NOT EXISTS tiktok_url TEXT;

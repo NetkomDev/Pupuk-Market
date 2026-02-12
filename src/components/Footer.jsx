@@ -18,6 +18,12 @@ export default function Footer() {
                         {settings?.facebook_url && (
                             <a href={settings.facebook_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>f</a>
                         )}
+                        {settings?.youtube_url && (
+                            <a href={settings.youtube_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>📺</a>
+                        )}
+                        {settings?.tiktok_url && (
+                            <a href={settings.tiktok_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>🎵</a>
+                        )}
                     </div>
                 </div>
                 <div className="footer-links">

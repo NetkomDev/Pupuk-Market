@@ -634,6 +634,14 @@ export default function AdminDashboard() {
                                 <label>Facebook URL</label>
                                 <input className="form-input" value={settingsForm.facebook_url || ''} onChange={e => setSettingsForm({ ...settingsForm, facebook_url: e.target.value })} placeholder="https://facebook.com/..." />
                             </div>
+                            <div className="form-group">
+                                <label>YouTube URL</label>
+                                <input className="form-input" value={settingsForm.youtube_url || ''} onChange={e => setSettingsForm({ ...settingsForm, youtube_url: e.target.value })} placeholder="https://youtube.com/..." />
+                            </div>
+                            <div className="form-group">
+                                <label>TikTok URL</label>
+                                <input className="form-input" value={settingsForm.tiktok_url || ''} onChange={e => setSettingsForm({ ...settingsForm, tiktok_url: e.target.value })} placeholder="https://tiktok.com/..." />
+                            </div>
                         </div>
                     </>
                 )}
