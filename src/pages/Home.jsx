@@ -98,8 +98,8 @@ export default function Home() {
                         className={`category-chip ${!selectedCategory ? 'active' : ''}`}
                         onClick={() => setSelectedCategory(null)}
                     >
-                        <div className="chip-icon">📦</div>
-                        <span className="chip-label">Semua</span>
+                        <span className="chip-icon">📦</span>
+                        Semua
                     </button>
                     {categories.map(cat => (
                         <button
@@ -107,8 +107,8 @@ export default function Home() {
                             className={`category-chip ${selectedCategory === cat.id ? 'active' : ''}`}
                             onClick={() => setSelectedCategory(cat.id)}
                         >
-                            <div className="chip-icon">{cat.icon || '🌱'}</div>
-                            <span className="chip-label">{cat.name}</span>
+                            <span className="chip-icon">{cat.icon || '🌱'}</span>
+                            {cat.name}
                         </button>
                     ))}
                 </div>
