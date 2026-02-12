@@ -112,7 +112,12 @@ export default function Checkout() {
 
             clearCart();
             addToast('Pesanan berhasil dibuat!', '✅');
-            navigate('/order-success');
+            navigate('/order-success', {
+                state: {
+                    customerName,
+                    items
+                }
+            });
         } catch (err) {
             console.error(err);
             addToast('Gagal membuat pesanan. Coba lagi.', '❌');

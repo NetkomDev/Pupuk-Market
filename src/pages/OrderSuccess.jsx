@@ -1,8 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function OrderSuccess() {
+    const location = useLocation();
+    const { customerName, items } = location.state || {};
+
+    let waMessage = 'Halo Admin, saya baru saja checkout pesanan di PupukMarket. Mohon segera diproses.';
+
+    if (customerName && items && items.length > 0) {
+        const itemsList = items.map(item => `${item.name} (${item.quantity})`).join(', ');
+        waMessage = `Halo Admin, ada order masuk dari ${customerName}, ${itemsList}. Mohon diproses.`;
+    }
+
+    const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+
     return (
         <>
             <Navbar onCartOpen={() => { }} />
@@ -17,7 +29,7 @@ export default function OrderSuccess() {
                         ← Kembali ke Beranda
                     </Link>
                     <a
-                        href="https://wa.me/6281234567890?text=Halo%20Admin%2C%20saya%20baru%20saja%20checkout%20pesanan%20di%20PupukMarket.%20Mohon%20segera%20diproses."
+                        href={waUrl}
                         target="_blank"
                         rel="noreferrer"
                         className="btn-primary"
