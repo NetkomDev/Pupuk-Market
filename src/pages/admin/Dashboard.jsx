@@ -16,7 +16,15 @@ export default function AdminDashboard() {
     const { user, loading: authLoading, signOut } = useAuth();
     const navigate = useNavigate();
     const addToast = useContext(ToastContext);
+    const { settings, setSettings } = useContext(SettingsContext) || {};
     const [activeTab, setActiveTab] = useState('dashboard');
+    const [settingsForm, setSettingsForm] = useState({});
+
+    useEffect(() => {
+        if (settings) {
+            setSettingsForm(settings);
+        }
+    }, [settings]);
 
     // Data
     const [products, setProducts] = useState([]);
