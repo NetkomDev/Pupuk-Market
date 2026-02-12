@@ -262,15 +262,15 @@ textarea {
 }
 
 .hero p {
-  font-size: 17px;
-  opacity: 0.95;
-  font-weight: 400;
-  margin-bottom: 34px;
-  line-height: 1.7;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+  opacity: 0.9;
+  font-weight: 500;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  max-width: 550px;
+  margin-left: 0;
+  /* Align left with heading */
+  text-shadow: none;
 }
 
 .hero-btns {
