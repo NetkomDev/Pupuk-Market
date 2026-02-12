@@ -1,10 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function OrderSuccess() {
     const location = useLocation();
-    const { customerName, items } = location.state || {};
+    const navigate = useNavigate();
+    const { customerName, items, autoRedirect } = location.state || {};
 
     let waMessage = 'Halo Admin, saya baru saja checkout pesanan di PupukMarket. Mohon segera diproses.';
 
@@ -14,6 +16,18 @@ export default function OrderSuccess() {
     }
 
     const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+
+    useEffect(() => {
+        if (autoRedirect) {
+            // Redirect to WhatsApp automatically after a short delay
+            const timer = setTimeout(() => {
+                window.location.href = waUrl;
+                // Clear the redirect flag to prevent loop on back navigation
+                navigate(location.pathname, { replace: true, state: { ...location.state, autoRedirect: false } });
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [autoRedirect, waUrl, navigate, location]);
 
     return (
         <>

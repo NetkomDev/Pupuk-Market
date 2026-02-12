@@ -115,7 +115,8 @@ export default function Checkout() {
             navigate('/order-success', {
                 state: {
                     customerName,
-                    items
+                    items,
+                    autoRedirect: true
                 }
             });
         } catch (err) {
