@@ -157,12 +157,13 @@ textarea {
   background: white;
   /* White search bar in navbar */
   border: none;
-  border-radius: 4px;
-  /* More rectangular but slightly rounded like example */
-  padding: 6px 14px;
-  gap: 8px;
-  width: 350px;
+  border-radius: var(--radius-full);
+  /* Fully rounded pill shape */
+  padding: 8px 20px;
+  gap: 10px;
+  width: 380px;
   transition: var(--transition);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-search input {
@@ -296,34 +297,41 @@ textarea {
 
 /* ========== CATEGORY CHIPS ========== */
 .category-section {
-  padding: 60px 20px;
+  padding: 32px 24px;
   background: white;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .category-chips {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  /* Grid for vertical layout */
-  gap: 40px;
-  justify-items: center;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  scrollbar-width: none;
+  justify-content: flex-start;
+  /* Horizontal start */
+  justify-items: unset;
+  /* Remove grid property */
 }
 
 .category-chip {
   display: flex;
-  flex-direction: column;
-  /* Vertical layout: icon atop text */
+  flex-direction: row;
+  /* Horizontal layout: icon left of text */
   align-items: center;
-  gap: 16px;
-  padding: 0;
-  background: none;
-  border: none;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--primary);
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  /* Pill shape */
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
@@ -343,34 +351,45 @@ textarea {
 }
 
 .category-chip .chip-icon {
-  width: 80px;
-  height: 80px;
-  background: var(--primary-50);
-  border-radius: 12px;
+  width: auto;
+  /* Auto width for icon in pill */
+  height: auto;
+  background: none;
+  /* Remove background */
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
-  color: var(--primary);
-  transition: transform 0.3s ease;
+  font-size: 18px;
+  /* Smaller icon */
+  color: inherit;
+  /* Inherit color from parent */
+  transition: none;
 }
 
 .category-chip:hover .chip-icon {
-  transform: scale(1.1);
-  background: var(--primary-100);
+  transform: none;
+  background: none;
 }
 
 .category-chip.active .chip-icon {
-  background: var(--primary);
+  background: none;
   color: white;
 }
 
-.category-chip:hover,
-.category-chip.active {
-  box-shadow: none;
-  transform: none;
-  background: none;
+.category-chip:hover {
+  background: var(--primary-50);
   color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 87, 36, 0.15);
+}
+
+.category-chip.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(21, 87, 36, 0.3);
+  transform: translateY(-2px);
+}
 }
 
 /* ========== PRODUCT GRID ========== */
