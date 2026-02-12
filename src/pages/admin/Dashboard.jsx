@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase, SUPABASE_URL } from '../../lib/supabase';
+import { ToastContext } from '../../App';
 
 function formatPrice(price) {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(price);
@@ -14,6 +15,7 @@ function slugify(text) {
 export default function AdminDashboard() {
     const { user, loading: authLoading, signOut } = useAuth();
     const navigate = useNavigate();
+    const addToast = useContext(ToastContext);
     const [activeTab, setActiveTab] = useState('dashboard');
 
     // Data
@@ -41,7 +43,32 @@ export default function AdminDashboard() {
     }, [user, authLoading]);
 
     useEffect(() => {
-        if (user) loadAllData();
+        if (user) {
+            loadAllData();
+
+            // Realtime subscription for new orders
+            const subscription = supabase
+                .channel('public:pupuk_orders')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pupuk_orders' }, payload => {
+                    const newOrder = payload.new;
+                    setOrders(prev => [newOrder, ...prev]);
+                    setStats(prev => ({
+                        ...prev,
+                        orders: prev.orders + 1,
+                        revenue: prev.revenue + (Number(newOrder.total_amount) || 0)
+                    }));
+                    addToast(`Pesanan Baru: ${formatPrice(newOrder.total_amount)}`, '🔔');
+                    // Play notification sound if possible, but browser policy might block it without interaction.
+                    // Simple beep logic:
+                    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                    audio.play().catch(e => console.log('Audio play failed', e));
+                })
+                .subscribe();
+
+            return () => {
+                supabase.removeChannel(subscription);
+            };
+        }
     }, [user]);
 
     async function loadAllData() {
